@@ -1,17 +1,22 @@
 const links: { [key: string]: string } = {}
-Deno.readTextFileSync("links.txt")
-    .split("\n")
-    .slice(0, -1)
-    .forEach((link) => {
-        const id = link.split("|")[0].trim()
-        const url = link.split("|")[1].trim()
-        links[id] = url
-    })
-console.log(
-    "Started up, found " +
-        Object.keys(links).length +
-        " link(s) from text file",
-)
+const linkSource = "file"
+if (linkSource == "file") {
+    Deno.readTextFileSync("links.txt")
+        .split("\n")
+        .slice(0, -1)
+        .forEach((link) => {
+            const id = link.split("|")[0].trim()
+            const url = link.split("|")[1].trim()
+            links[id] = url
+        })
+    console.log(
+        "Started up, found " +
+            Object.keys(links).length +
+            " link(s) from text file",
+    )
+} else {
+    throw "Invalid link source"
+}
 
 function getURLForId(id: string): string | null {
     if (id in links) {
