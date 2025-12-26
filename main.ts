@@ -7,7 +7,11 @@ Deno.readTextFileSync("links.txt")
         const url = link.split("|")[1].trim()
         links[id] = url
     })
-console.log(links)
+console.log(
+    "Started up, found " +
+        Object.keys(links).length +
+        " link(s) from text file",
+)
 
 function getURLForId(id: string): string | null {
     if (id in links) {
