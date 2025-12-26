@@ -1,6 +1,17 @@
+const links: { [key: string]: string } = {}
+Deno.readTextFileSync("links.txt")
+    .split("\n")
+    .slice(0, -1)
+    .forEach((link) => {
+        const id = link.split("|")[0].trim()
+        const url = link.split("|")[1].trim()
+        links[id] = url
+    })
+console.log(links)
+
 function getURLForId(id: string): string | null {
-    if (id == "testing") {
-        return "https://example.com"
+    if (id in links) {
+        return links[id]
     }
     return null
 }
