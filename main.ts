@@ -1,3 +1,14 @@
+let config: {
+    linkSource: "file" | undefined
+    linkSourceFilePath: string | undefined
+} = { linkSource: "file", linkSourceFilePath: "links.txt" }
+try {
+    const configFile = JSON.parse(Deno.readTextFileSync("shortlink.json"))
+    console.log("Reading config file")
+    config = { ...config, ...configFile }
+} catch (_) {
+    console.log("Error reading config file, using default settings")
+}
 const links: { [key: string]: string } = {}
 const linkSource = "file"
 if (linkSource == "file") {
